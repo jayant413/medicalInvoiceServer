@@ -9,5 +9,6 @@ router.post('/', invoiceController.createInvoice);
 
 // GET request to fetch invoices for a user
 router.get('/', invoiceController.getInvoices);
+router.delete('/:invoiceId', invoiceController.deleteInvoiceById);
 
 module.exports = router;

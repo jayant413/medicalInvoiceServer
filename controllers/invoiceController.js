@@ -43,3 +43,25 @@ exports.getInvoices = async (req, res) => {
         res.status(500).json({ message: 'Internal error' });
     }
 };
+
+
+exports.deleteInvoiceById = async (req, res) => {
+    try {
+        const { invoiceId } = req.params;
+
+        if (!invoiceId) {
+            return res.status(400).json({ message: 'Invoice ID is required' });
+        }
+
+        const deletedInvoice = await Invoice.findByIdAndDelete(invoiceId);
+
+        if (!deletedInvoice) {
+            return res.status(404).json({ message: 'Invoice not found' });
+        }
+
+        res.status(200).json({ message: 'Invoice deleted successfully' });
+    } catch (error) {
+        console.log('[INVOICE_DELETE]', error);
+        res.status(500).json({ message: 'Internal error' });
+    }
+};
